@@ -17,6 +17,8 @@ providing a review of different sorting algorithms.
 |      Bubble Sort |        3 |       79 |      365 |    11807 |    49103 |   223336 |
 |   Insertion Sort |        2 |       48 |      193 |     4988 |    19240 |   103816 |
 |       Quick Sort |        0 |        0 |        1 |        7 |       15 |       35 |
+|       Merge Sort |        0 |        2 |        3 |       12 |       26 |       57 |
+
 
 ### Rust
 
@@ -25,6 +27,8 @@ providing a review of different sorting algorithms.
 |      Bubble Sort |        0 |       23 |      127 |     4130 |    16454 |    67775 |
 |   Insertion Sort |        0 |        7 |       32 |      771 |     2947 |    11985 |
 |       Quick Sort |        0 |        0 |        0 |        4 |        9 |       17 |
+|       Merge Sort |        0 |        0 |        0 |        4 |        9 |       20 |
+
 
 ## Getting Started
 
