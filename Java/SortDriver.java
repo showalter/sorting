@@ -5,6 +5,7 @@ import java.util.Random;
 
 import sorters.BubbleSorter;
 import sorters.InsertionSorter;
+import sorters.MergeSorter;
 import sorters.QuickSorter;
 import sorters.Sorter;
 
@@ -46,6 +47,7 @@ public class SortDriver {
 		sorters.add(new BubbleSorter<>());
 		sorters.add(new InsertionSorter<>());
 		sorters.add(new QuickSorter<>());
+		sorters.add(new MergeSorter<>());
 
 		int[] increments = { 1_000, 5_000, 10_000, 50_000, 100_000, 200_000 };
 
