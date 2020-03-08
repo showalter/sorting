@@ -1,0 +1,9 @@
+[package]
+name = "sorting"
+version = "0.1.0"
+authors = ["Ryan Showalter <ryanshowalter76@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+num = "0.2.1"
+rand = "0.7.0"
