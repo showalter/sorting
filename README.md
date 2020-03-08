@@ -26,7 +26,7 @@ providing a review of different sorting algorithms.
 | ---------------- | -------- | -------- | -------- | -------- | -------- | -------- |
 |      Bubble Sort |        0 |       23 |      127 |     4130 |    16454 |    67775 |
 |   Insertion Sort |        0 |        7 |       32 |      771 |     2947 |    11985 |
-|       Quick Sort |        0 |        0 |        0 |        4 |        9 |       17 |
+|       Quick Sort |        0 |        0 |        0 |        3 |        6 |       14 |
 |       Merge Sort |        0 |        0 |        0 |        4 |        9 |       20 |
 
 
