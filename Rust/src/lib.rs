@@ -73,11 +73,11 @@ pub fn insertion_sort<T: Ord + FromPrimitive>(list: &mut Vec<T>) {
 ///     assert_eq!(i, v[i]);
 /// }   
 /// ```
-pub fn quick_sort<T: Clone + Ord + FromPrimitive>(list: &mut Vec<T>) {
+pub fn quick_sort<T: Copy + Ord + FromPrimitive>(list: &mut Vec<T>) {
     quick_sort_helper(list, 0, list.len() - 1);
 }
 
-fn quick_sort_helper<T: Clone + Ord + FromPrimitive>(list: &mut Vec<T>, low: usize, high: usize) {
+fn quick_sort_helper<T: Copy + Ord + FromPrimitive>(list: &mut Vec<T>, low: usize, high: usize) {
     if low >= high {
         return;
     }
@@ -95,7 +95,7 @@ fn quick_sort_helper<T: Clone + Ord + FromPrimitive>(list: &mut Vec<T>, low: usi
     }
 }
 
-fn partition<T: Clone + Ord + FromPrimitive>(list: &mut Vec<T>, low: usize, high: usize) -> i32 {
+fn partition<T: Copy + Ord + FromPrimitive>(list: &mut Vec<T>, low: usize, high: usize) -> i32 {
     let pivot = list[high].clone();
 
     let mut i = low;
@@ -113,6 +113,65 @@ fn partition<T: Clone + Ord + FromPrimitive>(list: &mut Vec<T>, low: usize, high
     list.swap(i, high);
 
     i as i32
+}
+
+pub fn merge_sort<T: Copy + Ord + FromPrimitive>(mut list: &mut Vec<T>) {
+    let n = list.len();
+
+    // A list with 0 or 1 elements is already sorted.
+    if n <= 1 {
+        return;
+    }
+
+    let mid = n / 2;
+
+    // Split the list
+    let mut copy = list.clone();
+    let mut right = copy.split_off(mid);
+
+    // Make a recursive call on each side
+    merge_sort(&mut copy);
+    merge_sort(&mut right);
+
+    // Merge the two sides back together.
+    merge(&copy, &right, &mut list);
+}
+
+fn merge<T: Copy + Ord + FromPrimitive>(left: &Vec<T>, right: &Vec<T>, list: &mut Vec<T>) {
+    let mut left_index = 0;
+    let mut right_index = 0;
+    let mut list_index = 0;
+
+    // Walk up both lists and compare the items. Take the one from the left side
+    // if there is a tie. This maintains stability.
+    while left_index < left.len() && right_index < right.len() {
+        let item: T = {
+            if compare(&left[left_index], &right[right_index]) <= 0 {
+                left_index += 1;
+                left[left_index - 1].clone()
+            } else {
+                right_index += 1;
+                right[right_index - 1].clone()
+            }
+        };
+
+        list[list_index] = item;
+        list_index += 1;
+    }
+
+    // Finish off the left list.
+    while left_index < left.len() {
+        list[list_index] = left[left_index].clone();
+        list_index += 1;
+        left_index += 1;
+    }
+
+    // Finish off the right list.
+    while right_index < right.len() {
+        list[list_index] = right[right_index].clone();
+        list_index += 1;
+        right_index += 1;
+    }
 }
 
 pub mod profiling {
@@ -164,6 +223,7 @@ pub mod profiling {
         run_sort_profiler(bubble_sort, "Bubble Sort", &config);
         run_sort_profiler(insertion_sort, "Insertion Sort", &config);
         run_sort_profiler(quick_sort, "Quick Sort", &config);
+        run_sort_profiler(merge_sort, "Merge Sort", &config);
     }
 }
 
@@ -330,6 +390,51 @@ mod tests {
         }
 
         quick_sort(&mut v);
+
+        for i in 1..20 {
+            assert!(v[i - 1] <= v[i]);
+        }
+    }
+
+    #[test]
+    fn merge_sort_presorted() {
+        let mut v = Vec::with_capacity(20);
+
+        for i in 0..20 {
+            v.push(i);
+        }
+
+        merge_sort(&mut v);
+
+        for i in 0..20 {
+            assert_eq!(i, v[i]);
+        }
+    }
+
+    #[test]
+    fn merge_sort_reverse() {
+        let mut v = Vec::with_capacity(20);
+
+        for i in (0..20).rev() {
+            v.push(i);
+        }
+
+        merge_sort(&mut v);
+
+        for i in 0..20 {
+            assert_eq!(i, v[i]);
+        }
+    }
+
+    #[test]
+    fn merge_sort_random() {
+        let mut v = Vec::with_capacity(20);
+
+        for _ in 0..20 {
+            v.push(rand::thread_rng().gen_range(0, 999));
+        }
+
+        merge_sort(&mut v);
 
         for i in 1..20 {
             assert!(v[i - 1] <= v[i]);
