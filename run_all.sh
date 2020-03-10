@@ -8,6 +8,18 @@ SEP="| ---------------- | ------------ | ------------ |\
 ELEMENTS="|                  |         1000 |         5000 |\
         10000 |        50000 |       100000 |       200000 |"
 
+echo "## C"
+echo
+printf '%s\n' "$ELEMENTS"
+printf '%s\n' "$SEP"
+
+cd C
+make -s
+./sort "$NUM_RUNS"
+
+cd $BASE
+echo; echo
+
 echo "## Java"
 echo
 printf '%s\n' "$ELEMENTS"

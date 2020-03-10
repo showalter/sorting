@@ -10,6 +10,16 @@ providing a review of different sorting algorithms.
 
 ## Results in milliseconds (10 times at each increment, taking the min)
 
+### C (-O2)
+
+|                  |     1000 |     5000 |    10000 |    50000 |   100000 |   200000 |
+| ---------------- | -------- | -------- | -------- | -------- | -------- | -------- |
+|      Bubble sort |        0 |       19 |      104 |     3276 |    13383 |    53744 |
+|   Insertion sort |        0 |        6 |       28 |      804 |     3240 |    13006 |
+|       Quick sort |        0 |        0 |        0 |        3 |        7 |       15 |
+|       Merge sort |        0 |        0 |        0 |        4 |        8 |       18 |
+
+
 ### Java
 
 |                  |     1000 |     5000 |    10000 |    50000 |   100000 |   200000 |
